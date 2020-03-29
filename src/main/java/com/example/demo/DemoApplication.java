@@ -12,10 +12,10 @@ public class DemoApplication {
     public static void main(String[] args) {
         ApplicationContext ctx =SpringApplication.run(DemoApplication.class, args);
         ProduitRepository produitRepository = ctx.getBean(ProduitRepository.class);
-        produitRepository.save(new Produit("MACHINE 1",10000 ,6));
-        produitRepository.save(new Produit("MACHINE 2",10584 ,2));
-        produitRepository.save(new Produit("MACHINE 3",10850 ,3));
-        produitRepository.save(new Produit("MACHINE 4",10698 ,8));
+        produitRepository.save(new Produit("ASUS 1",10000 ,6));
+        produitRepository.save(new Produit("HP 2",10584 ,2));
+        produitRepository.save(new Produit("SAMSUNG S10",10850 ,3));
+        produitRepository.save(new Produit("IPHONE 8",10698 ,8));
 
         produitRepository.findAll().forEach(p -> System.out.println(p.getDesignation() + p.getPrix() + p.getQuantitie()));
     }

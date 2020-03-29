@@ -33,7 +33,7 @@
         <td th:text="${p.prix}"></td>
         <td th:text="${p.quantitie}"></td>
         <td>
-            <a th:href="@{delete(id=${p.id},page=${pageCourante},size=${size},key=${mc})}" >Delete</a>
+            <a onclick="return confirm('Are you sure ?')" th:href="@{delete(id=${p.id},page=${pageCourante},size=${size},key=${mc})}" >Delete</a>
         </td>
     </tr>
     </tbody>
