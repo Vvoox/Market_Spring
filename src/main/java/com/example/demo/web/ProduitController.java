@@ -1,6 +1,7 @@
 package com.example.demo.web;
 
 import com.example.demo.dao.ProduitRepository;
+
 import com.example.demo.entities.Produit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Optional;
+
 
 
 @Controller
-public class ProduitController  {
+public class ProduitController {
 
     @Autowired
     private ProduitRepository produitRepository;
@@ -45,10 +47,17 @@ public class ProduitController  {
     }
 
     @RequestMapping(value = "/form" , method = RequestMethod.GET)
-    public String edit(Model model){
+    public String form(Model model){
         model.addAttribute("produit", new Produit());
 
         return "FormProduit";
+    }
+
+    @RequestMapping(value = "/edit" , method = RequestMethod.GET)
+    public String edit(Model model,Long id){
+        Produit p = produitRepository.getOne(id);
+        model.addAttribute("produit",p);
+        return "EditProduit";
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
@@ -71,7 +80,7 @@ public class ProduitController  {
         return "redirect:/index";
     }
 
-    @RequestMapping(value = "/" )
+    @RequestMapping(value = "/")
     public String home(){
         return "redirect:/index";
     }

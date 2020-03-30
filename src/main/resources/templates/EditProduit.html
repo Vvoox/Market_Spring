@@ -18,6 +18,11 @@
         <div class="panel-body">
 
             <form th:action="@{save}" method="post">
+                <div class="form-group">
+                    <label class="control-label">Id</label>
+                    <input class="form-control" type="text" name="id" th:value="${produit.id}">
+                    <span class="red" th:errors="${produit.id}"></span>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label">Designation</label>
@@ -36,7 +41,6 @@
                     <label class="control-label">Quantitie</label>
                     <input class="form-control" type="text" name="quantitie" th:value="${produit.quantitie}">
                     <span class="red" th:errors="${produit.quantitie}"></span>
-
                 </div>
 
                 <button type="submit"  class="btn btn-primary">Valider</button>
