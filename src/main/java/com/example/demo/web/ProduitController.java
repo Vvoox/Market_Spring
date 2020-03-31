@@ -23,7 +23,7 @@ public class ProduitController {
     @Autowired
     private ProduitRepository produitRepository;
 
-    @RequestMapping(value="/index")
+    @RequestMapping(value="/user/index")
     public String index(Model model , @RequestParam(name="page",defaultValue = "0") int page ,
                         @RequestParam(name="size",defaultValue = "8") int size,
                         @RequestParam(name="key",defaultValue = "" ) String key){
@@ -39,28 +39,28 @@ public class ProduitController {
         return "produits";
     }
 
-    @RequestMapping(value="/delete" , method = RequestMethod.GET)
+    @RequestMapping(value="/admin/delete" , method = RequestMethod.GET)
     public String delete(Long id , int page , int size ,String key ){
         produitRepository.deleteById(id);
 
-        return "redirect:/index?page="+page+"&size="+size+"&key="+key;
+        return "redirect:/admin/index?page="+page+"&size="+size+"&key="+key;
     }
 
-    @RequestMapping(value = "/form" , method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/form" , method = RequestMethod.GET)
     public String form(Model model){
         model.addAttribute("produit", new Produit());
 
         return "FormProduit";
     }
 
-    @RequestMapping(value = "/edit" , method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/edit" , method = RequestMethod.GET)
     public String edit(Model model,Long id){
         Produit p = produitRepository.getOne(id);
         model.addAttribute("produit",p);
         return "EditProduit";
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/save",method = RequestMethod.POST)
     public String save(Model model , @Valid Produit produit , BindingResult bindingResult){
 
         if(bindingResult.hasErrors())
@@ -75,14 +75,24 @@ public class ProduitController {
 
     }
 
-    @RequestMapping(value = "/Confirmation" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/Confirmation" ,method = RequestMethod.GET)
     public String confirmation(){
-        return "redirect:/index";
+        return "redirect:/admin/index";
     }
 
     @RequestMapping(value = "/")
     public String home(){
-        return "redirect:/index";
+        return "redirect:/user/index";
+    }
+
+    @RequestMapping(value = "/user/403")
+    public String accessDenied(){
+        return "403";
+    }
+
+    @RequestMapping(value = "/admin/index")
+    public String index2(){
+        return "redirect:/user/index";
     }
 
 
