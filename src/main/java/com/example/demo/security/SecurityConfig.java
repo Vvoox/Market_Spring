@@ -1,6 +1,5 @@
 package com.example.demo.security;
 
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,6 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+
+
 
 import javax.sql.DataSource;
 
@@ -31,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
                 .usersByUsernameQuery("select login as principal,password as credentials ,active as enabled from users where login=?")
                 .authoritiesByUsernameQuery("select login as pricipal , role from users_roles where login=?")
+//                .passwordEncoder(new Md5PasswordEncoder())
                 .rolePrefix("ROLE_");
 
 
@@ -38,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin();
+        http.formLogin().loginPage("/login");
+//        http.csrf().disable();
         http.authorizeRequests().antMatchers("/user/*").hasRole("USER");
         http.authorizeRequests().antMatchers("/admin/*").hasRole("ADMIN");
         http.exceptionHandling().accessDeniedPage("/user/403");

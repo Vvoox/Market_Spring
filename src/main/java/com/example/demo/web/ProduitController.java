@@ -85,6 +85,12 @@ public class ProduitController {
         return "redirect:/user/index";
     }
 
+    @RequestMapping(value="/login")
+    public String login(){
+
+        return "login";
+    }
+
     @RequestMapping(value = "/user/403")
     public String accessDenied(){
         return "403";
